@@ -3,7 +3,7 @@ layout: default
 title: Music Computation
 categories: teaching
 ---
-Undergraduate/Graduate Course: Fall 2021  
+Graduate/Undergraduate Course: Fall 2021  
 MUS 3934-0005/5939-0006 (Special Topics in Music)  
 Tuesdays and Thursdays, 11:00 am – 12:15 pm  
 (Non-music majors with programming experience may register with instructor permission.)
