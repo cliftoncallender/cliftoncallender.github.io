@@ -20,6 +20,7 @@ Contact me for complete list, parts, click tracks, etc.
  {% if composition.youtube-id %}
  <div class="container">
 	<iframe src='http://www.youtube.com/embed/{{ composition.youtube-id }}' frameborder="0" allowfullscreen class="video"></iframe>
+ </div>
 
  {% endif %}
 
