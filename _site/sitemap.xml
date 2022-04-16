@@ -4,13 +4,13 @@
 	<!-- Site/Blog Indexes -->
 	<url>
 		<loc>http://localhost:4000</loc>
-		<lastmod>2021-03-04T00:28:57+00:00</lastmod>
+		<lastmod>2022-04-16T19:16:50+00:00</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>1.0</priority>
 	</url>
 	<url>
 		<loc>http://localhost:4000/blog/</loc>
-		<lastmod>2021-03-04T00:28:57+00:00</lastmod>
+		<lastmod>2022-04-16T19:16:50+00:00</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>1.0</priority>
 	</url>
@@ -20,223 +20,229 @@
 	<!-- Pages -->
 	<url>
 		<loc>http://localhost:4000/composition/reflectionsonthenatureoflight/</loc>
-		<lastmod>2021-03-04T00:28:57+00:00</lastmod>
+		<lastmod>2022-04-16T19:16:50+00:00</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://localhost:4000/_pages/research/1998-04-15-VoiceLeadingParsimonyScriabin</loc>
-		<lastmod>2021-03-04T00:28:57+00:00</lastmod>
+		<lastmod>2022-04-16T19:16:50+00:00</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://localhost:4000/composition/LuminousSignals/</loc>
-		<lastmod>2021-03-04T00:28:57+00:00</lastmod>
+		<lastmod>2022-04-16T19:16:50+00:00</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://localhost:4000/composition/PattyMyDear/</loc>
-		<lastmod>2021-03-04T00:28:57+00:00</lastmod>
+		<lastmod>2022-04-16T19:16:50+00:00</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://localhost:4000/_pages/research/2001-04-15-FormalizedAccelerando</loc>
-		<lastmod>2021-03-04T00:28:57+00:00</lastmod>
+		<lastmod>2022-04-16T19:16:50+00:00</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://localhost:4000/_pages/research/2004-04-15-ContinuousTransformations</loc>
-		<lastmod>2021-03-04T00:28:57+00:00</lastmod>
+		<lastmod>2022-04-16T19:16:50+00:00</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://localhost:4000/_pages/compositions/2005-10-15-treballi</loc>
-		<lastmod>2021-03-04T00:28:57+00:00</lastmod>
+		<lastmod>2022-04-16T19:16:50+00:00</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://localhost:4000/_pages/compositions/2006-10-15-PointAndlineToPlane</loc>
-		<lastmod>2021-03-04T00:28:57+00:00</lastmod>
+		<lastmod>2022-04-16T19:16:50+00:00</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://localhost:4000/_pages/research/2007-07-15-LamentoMotifJazzHarmoniesLigetiArc-en-ciel</loc>
-		<lastmod>2021-03-04T00:28:57+00:00</lastmod>
+		<lastmod>2022-04-16T19:16:50+00:00</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://localhost:4000/_pages/compositions/2007-1-15-Metamorphoses</loc>
-		<lastmod>2021-03-04T00:28:57+00:00</lastmod>
+		<lastmod>2022-04-16T19:16:50+00:00</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://localhost:4000/_pages/research/2008-04-15-GeneralizeVoiceLeadingSpaces</loc>
-		<lastmod>2021-03-04T00:28:57+00:00</lastmod>
+		<lastmod>2022-04-16T19:16:50+00:00</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://localhost:4000/composition/ReasonsToLearneToSing/</loc>
-		<lastmod>2021-03-04T00:28:57+00:00</lastmod>
+		<lastmod>2022-04-16T19:16:50+00:00</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://localhost:4000/_pages/research/2009-04-15-ContinuousHarmonicSpaces</loc>
-		<lastmod>2021-03-04T00:28:57+00:00</lastmod>
+		<lastmod>2022-04-16T19:16:50+00:00</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://localhost:4000/_pages/compositions/2009-7-15-MetamorphosesII</loc>
-		<lastmod>2021-03-04T00:28:57+00:00</lastmod>
+		<lastmod>2022-04-16T19:16:50+00:00</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://localhost:4000/_pages/compositions/2010-7-15-HungarianJazz</loc>
-		<lastmod>2021-03-04T00:28:57+00:00</lastmod>
+		<lastmod>2022-04-16T19:16:50+00:00</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://localhost:4000/_pages/research/2013-07-15-ConceptualAndExpressiveRepresentationsOfTempo</loc>
-		<lastmod>2021-03-04T00:28:57+00:00</lastmod>
+		<lastmod>2022-04-16T19:16:50+00:00</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://localhost:4000/research/SturmianCanons/</loc>
-		<lastmod>2021-03-04T00:28:57+00:00</lastmod>
+		<lastmod>2022-04-16T19:16:50+00:00</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://localhost:4000/_pages/compositions/2013-1-15-elegy</loc>
-		<lastmod>2021-03-04T00:28:57+00:00</lastmod>
+		<lastmod>2022-04-16T19:16:50+00:00</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://localhost:4000/_pages/compositions/2013-7-15-CanonicOfferings</loc>
-		<lastmod>2021-03-04T00:28:57+00:00</lastmod>
+		<lastmod>2022-04-16T19:16:50+00:00</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://localhost:4000/_pages/research/2014-04-15-PerformingTheIrrational</loc>
-		<lastmod>2021-03-04T00:28:57+00:00</lastmod>
+		<lastmod>2022-04-16T19:16:50+00:00</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://localhost:4000/_pages/research/2014-10-15-InfiniteCanons</loc>
-		<lastmod>2021-03-04T00:28:57+00:00</lastmod>
+		<lastmod>2022-04-16T19:16:50+00:00</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://localhost:4000/_pages/compositions/2014-12-15-gegenschein</loc>
-		<lastmod>2021-03-04T00:28:57+00:00</lastmod>
+		<lastmod>2022-04-16T19:16:50+00:00</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://localhost:4000/_pages/teaching/2015-03-31-ComputationalMethods</loc>
-		<lastmod>2021-03-04T00:28:57+00:00</lastmod>
-		<changefreq>monthly</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
-		<loc>http://localhost:4000/_pages/teaching/2017-04-22-MusicComputation</loc>
-		<lastmod>2021-03-04T00:28:57+00:00</lastmod>
+		<lastmod>2022-04-16T19:16:50+00:00</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://localhost:4000/_pages/research/2017-1-14-CombinatorialTonality</loc>
-		<lastmod>2021-03-04T00:28:57+00:00</lastmod>
+		<lastmod>2022-04-16T19:16:50+00:00</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://localhost:4000/composition/gegenschein/</loc>
-		<lastmod>2021-03-04T00:28:57+00:00</lastmod>
+		<lastmod>2022-04-16T19:16:50+00:00</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://localhost:4000/_pages/compositions/2020-2-29-DearMatafelePeinam</loc>
-		<lastmod>2021-03-04T00:28:57+00:00</lastmod>
+		<lastmod>2022-04-16T19:16:50+00:00</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
-		<loc>http://localhost:4000/_pages/teaching/2020-3-13-ComputerMusicProgramming</loc>
-		<lastmod>2021-03-04T00:28:57+00:00</lastmod>
+		<loc>http://localhost:4000/_pages/teaching/2021-03-18-MusicComputation</loc>
+		<lastmod>2022-04-16T19:16:50+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>http://localhost:4000/_pages/compositions/2022-2-5-DearMatafelePeinamMezzoPiano</loc>
+		<lastmod>2022-04-16T19:16:50+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>http://localhost:4000/_pages/teaching/2022-3-13-ComputerMusicProgramming</loc>
+		<lastmod>2022-04-16T19:16:50+00:00</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://localhost:4000/composition/DearMatafelePeinam/</loc>
-		<lastmod>2021-03-04T00:28:57+00:00</lastmod>
+		<lastmod>2022-04-16T19:16:50+00:00</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://localhost:4000/research/infinite_canons/</loc>
-		<lastmod>2021-03-04T00:28:57+00:00</lastmod>
+		<lastmod>2022-04-16T19:16:50+00:00</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://localhost:4000/teaching/music_computation/code/</loc>
-		<lastmod>2021-03-04T00:28:57+00:00</lastmod>
+		<lastmod>2022-04-16T19:16:50+00:00</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://localhost:4000/teaching/NewMusicEnsemble/</loc>
-		<lastmod>2021-03-04T00:28:57+00:00</lastmod>
+		<lastmod>2022-04-16T19:16:50+00:00</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://localhost:4000/about/</loc>
-		<lastmod>2021-03-04T00:28:57+00:00</lastmod>
+		<lastmod>2022-04-16T19:16:50+00:00</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://localhost:4000/about/bio/</loc>
-		<lastmod>2021-03-04T00:28:57+00:00</lastmod>
+		<lastmod>2022-04-16T19:16:50+00:00</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://localhost:4000/composition/</loc>
-		<lastmod>2021-03-04T00:28:57+00:00</lastmod>
+		<lastmod>2022-04-16T19:16:50+00:00</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://localhost:4000/research/</loc>
-		<lastmod>2021-03-04T00:28:57+00:00</lastmod>
+		<lastmod>2022-04-16T19:16:50+00:00</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://localhost:4000/teaching/</loc>
-		<lastmod>2021-03-04T00:28:57+00:00</lastmod>
+		<lastmod>2022-04-16T19:16:50+00:00</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
