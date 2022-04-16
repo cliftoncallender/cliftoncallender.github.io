@@ -33,7 +33,7 @@ Previous experience with programming or MIDI and digital audio is not required. 
 [schubert]: https://youtu.be/LqZNeDGmgVY?list=RDCzNCpuPhYFE
 [axis-images]: http://www.omproduck.fr/axis-images.html
 
-[BeatFactory]: https://cycling74.com/practical-max/practical-max-2/#.V2yKjZMrKRs
+[BeatFactory]: https://www.youtube.com/watch?v=k9DMmORItbY
 
 [kureta]: https://youtu.be/CzNCpuPhYFE?list=RDCzNCpuPhYFE
 [steizer]: https://www.youtube.com/watch?v=9QmdCxIXs0Y&index=29&list=RDCzNCpuPhYFE
