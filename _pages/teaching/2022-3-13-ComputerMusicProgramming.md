@@ -4,7 +4,7 @@ title: Computer Music Programming
 categories: teaching
 image: MaxPatch.jpg
 ---
-Undergraduate and Graduate Course: Fall 2020  
+Undergraduate and Graduate Course: Fall 2022  
 Computer Music Programming  
 Tuesdays and Thursdays, 3:35 -- 4:50 pm  
 _Three-credit course counts as a music theory elective._  
