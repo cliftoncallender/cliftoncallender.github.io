@@ -12,7 +12,7 @@ _Three-credit course counts as a music theory elective._
 
 This course is an introduction to music and multimedia programming using the visual programming language [Max][Max] (from [Cycling '74][Cycling '74]). Max allows users to create their own software for interactive audio and graphics by virtually connecting objects for real-time manipulation of MIDI, digital audio, and video (including 2D and 3D vector graphics). Some of the many [projects][projects] utilizing Max:
 
-- Interactive [audio][brook], [audio/visual][schubert], and [dance][axis-images] works
+- [Interactive][Z] [audio][brook], [audio/visual][schubert], and [dance][axis-images] works
 - New possibilities for [improvisation][BeatFactory] and [performance][tropes]
 - Tools for [music theory][ChordGeometries] and [ethnomusicology][gamelan]
 - [Creating multimedia apps][MetroKit2]
@@ -28,7 +28,8 @@ Previous experience with programming or MIDI and digital audio is not required. 
 [Cycling '74]: https://cycling74.com/
 [projects]: https://cycling74.com/community/?q=project
 
-[brook]: http://elillios.com/home/index.php/en/composition/live-electronics-interactive/the-rush-of-the-brook-stills-the-mind
+[Z]: https://www.youtube.com/watch?v=FxUyYEsqW20
+[brook]: https://www.youtube.com/watch?v=C17ibRJeaYQ
 [schubert]: https://youtu.be/LqZNeDGmgVY?list=RDCzNCpuPhYFE
 [axis-images]: http://www.omproduck.fr/axis-images.html
 
