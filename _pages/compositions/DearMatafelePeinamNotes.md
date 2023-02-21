@@ -1,7 +1,7 @@
 ---
 permalink: /composition/DearMatafelePeinam/
 layout: default
-title: Infinite Canons
+title: Dear Matafele Peinam
 categories: 
 image: 
 ---
