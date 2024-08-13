@@ -16,8 +16,7 @@ Handel's Messiah, movement 3-05
 Feature extracted: Direction of Motion
 """
 
-url = 'http://www.musedata.org/cgi-bin/mddata?composer=handel' \
-      '&edition=chry&genre=&work=messiah&format=kern&movement=3-05'
+url = 'Messiah_-_Handel_-_3.50_O_death_where_is_thy_sting.mxl'
 handel = converter.parse(url)
 
 # "The features implemented in `features.jSymbolic` are based on those found
