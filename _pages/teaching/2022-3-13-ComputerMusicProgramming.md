@@ -29,7 +29,7 @@ Previous experience with programming or MIDI and digital audio is not required. 
 [Cycling '74]: https://cycling74.com/
 [projects]: https://cycling74.com/community/?q=project
 
-[brook]: http://elillios.com/home/index.php/en/composition/live-electronics-interactive/the-rush-of-the-brook-stills-the-mind
+[brook]: https://www.youtube.com/watch?v=C17ibRJeaYQ
 [schubert]: https://youtu.be/LqZNeDGmgVY?list=RDCzNCpuPhYFE
 [axis-images]: http://www.omproduck.fr/axis-images.html
 
