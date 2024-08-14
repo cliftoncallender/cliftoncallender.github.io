@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="chrome=1" />
-		<title>{% if page.title %}{{ page.title }}{% else %}PixelCog{% endif %}</title>
+		<title>{% if page.title %}{{ page.title }}{% else %}Clifton Callender{% endif %}</title>
 
 		<link rel="canonical" href="{{ site.url }}{{ page.url }}" />
 {% if page.blogfeed %}
@@ -19,12 +19,14 @@
 	<body>
 		<div class="wrapper{% if location == '' %} home{% endif %}">
 			<header>
-				<h1><a href="/"><img src="/img/pixelcog-logo.png" alt="{{ site.name }}" width="300" /></a></h1>
+				<div style="text-align: center;">
+					<h1><a href="/"><img src="/img/favicon.png" alt="{{ site.name }}" width="200"/></a></h1>
+				</div>
 				<nav><ul>
 					<li><a {% if location == 'about' %}class="active" {% endif %}href="/about/">About</a></li>
-					<li><a {% if location == 'projects' %}class="active" {% endif %}href="/projects/">Projects</a></li>
-					<li><a {% if location == 'blog' %}class="active" {% endif %}href="/blog/">Blog</a></li>
-					<li><a {% if location == 'contact' %}class="active" {% endif %}href="/contact/">Contact</a></li>
+					<li><a {% if location == 'works' %}class="active" {% endif %}href="/composition/">Works</a></li>
+					<li><a {% if location == 'research' %}class="active" {% endif %}href="/research/">Research</a></li>
+					<li><a {% if location == 'teaching' %}class="active" {% endif %}href="/teaching/">Teaching</a></li>
 				</ul></nav>
 			</header>
 			<section>
@@ -32,14 +34,14 @@
 			</section>
 			<footer>
 {% if page.nobio != true %}{% if location != '' %}
-				<img class="avatar" src="http://www.gravatar.com/avatar/33f90637d77f8d4da67faafd3af6597e?s=144" alt="Me" />
+				<h1><a href="/"><img src="/img/Clifton-Callender.png" alt="{{ site.name }}" width="125"/></a></h1>
 {% endif %}
-				<p>PixelCog is the home of <a href="/about/">Mike Greiling</a>, freelance programmer, consultant, and entrepreneur.</p>
-				<p><a href="http://github.com/mikegreiling">github</a> | <a href="http://twitter.com/mikegreiling">twitter</a> | <a href="http://facebook.com/mike.greiling">facebook</a></p>
+				<p>Home page of <a href="/about/">Clifton Callender</a>, composer and music theorist.</p>
+				<p><a href="http://github.com/cliftoncallender">github</a> | <a href="http://soundcloud.com/cliftoncallender">soundcloud</a> | <a href="https://www.youtube.com/@CliftonCallender">YouTube</a></p>
 {% endif %}
 				<p>
-					<small>© {{ site.time | date: '%Y' }} PixelCog Inc.</small><br />
-					<small>Made with <a href="http://jekyllrb.com/">Jekyll</a> &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small>
+					<small>Made with <a href="http://jekyllrb.com/">Jekyll</a> &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a><br>
+					modifications by <a href="http://pixelcog.com/about/">Mike Greiling<a/> </small>
 				</p>
 			</footer>
 		</div>
