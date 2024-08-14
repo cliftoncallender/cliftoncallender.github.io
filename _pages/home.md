@@ -1,6 +1,6 @@
 ---
 permalink: /
-redirect:  /blog/
+redirect:  /about/
 layout:    redirect
 blogfeed:  true
 ---
