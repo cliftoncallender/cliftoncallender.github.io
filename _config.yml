@@ -6,9 +6,10 @@ gems: [jekyll-paginate]
 
 include:  ['_pages']
 
-paginate:      10
+paginate:      20
 paginate_path: '/blog/page:num/'
 permalink:     '/blog/:year/:title/'
+
 relative_permalinks: false
 
 excerpt_separator: "{{ more }}"

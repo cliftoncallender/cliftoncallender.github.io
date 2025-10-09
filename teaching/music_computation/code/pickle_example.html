@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>pickle_example.py</title>
+  <link rel="stylesheet" href="pycco.css">
+</head>
+<body>
+<div id='container'>
+  <div id="background"></div>
+  <div class='section'>
+    <div class='docs'><h1>pickle_example.py</h1></div>
+  </div>
+  <div class='clearall'>
+  <div class='section' id='section-0'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-0'>#</a>
+      </div>
+      <h1>Using <code>pickle</code></h1>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span></span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-1'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-1'>#</a>
+      </div>
+      <p>“Pickling” is the process whereby a Python object hierarchy is converted into
+a byte stream, and “unpickling” is the inverse operation, whereby a byte
+stream (from a binary file or bytes-like object) is converted back into an
+object hierarchy. See the
+<a href="https://docs.python.org/3/library/pickle.html">documentation </a> for more
+details. (Original code <a href="pickle_example.py">here</a>.)</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">pickle</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-2'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-2'>#</a>
+      </div>
+      <h3><span id="simple-example" href="simple-example"> Simple example </span></h3>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="n">favorite_works</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Parker&#39;</span><span class="p">:</span><span class="s1">&#39;Anthropology&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;Saariaho&#39;</span><span class="p">:</span><span class="s1">&#39;Amers&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;Bach&#39;</span><span class="p">:</span><span class="s1">&#39;Musical Offering&#39;</span><span class="p">}</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-3'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-3'>#</a>
+      </div>
+      <p>Use the <code>dump</code> method to write a pickled representation of the object
+<code>favorite_works</code> to the file object with path 'favorites.pkl'. The file
+is opened in mode 'wb', which that file is opened for writing in binary mode.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span> <span class="n">favorite_works</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;favorites.pkl&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">))</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-4'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-4'>#</a>
+      </div>
+      <p><code>Savedlist -- {'Parker': 'Anthropology', 'Saariaho': 'Amers', 'Bach': 'Musical Offering'}</code></p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">print</span><span class="p">(</span><span class="s2">&quot;Savedlist --&quot;</span><span class="p">,</span> <span class="n">favorite_works</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-5'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-5'>#</a>
+      </div>
+      <p>Use the <code>load</code> method to read a pickled object representation from the file
+object with path 'favorites.pkl' and return the reconstituted object hierarchy
+specified therein.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="n">retrieved_favorites</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;favorites.pkl&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">))</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-6'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-6'>#</a>
+      </div>
+      <p><code>Retrieved list -- {'Parker': 'Anthropology', 'Saariaho': 'Amers', 'Bach': 'Musical Offering'}</code></p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">print</span><span class="p">(</span><span class="s2">&quot;Retrieved list --&quot;</span><span class="p">,</span> <span class="n">retrieved_favorites</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-7'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-7'>#</a>
+      </div>
+      <h3><span id="parsing-and-pickling-folksongs" href="parsing-and-pickling-folksongs"> Parsing and pickling folksongs </span></h3>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-8'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-8'>#</a>
+      </div>
+      <h4><span id="parse-folksongs-from-the-music21-corpus" href="parse-folksongs-from-the-music21-corpus"> Parse folksongs from the music21 corpus </span></h4>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-9'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-9'>#</a>
+      </div>
+      <p><code>`time.time()</code> returns the time in seconds since the epoch (an arbitrary
+reference time) as a floating point number.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-10'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-10'>#</a>
+      </div>
+      <p>Parsing songs from 'han' and 'boehme' opuses</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="n">oChina</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;essenFolksong/han1&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;han1 loaded&#39;</span><span class="p">)</span>
+<span class="n">oCEurope</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;essenFolksong/boehme10&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;boehme10 loaded&#39;</span><span class="p">)</span>
+
+<span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-11'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-11'>#</a>
+      </div>
+      <p>timing stats</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="n">interval</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-12'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-12'>#</a>
+      </div>
+      <p>On my computer, parsing takes 8 seconds.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">print</span><span class="p">(</span><span class="s2">&quot;Parsing took&quot;</span><span class="p">,</span> <span class="n">interval</span><span class="p">,</span> <span class="s2">&quot;seconds.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-13'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-13'>#</a>
+      </div>
+      <h4><span id="create-list-of-features-with-ids-p1---p8-and-r31---r35" href="create-list-of-features-with-ids-p1---p8-and-r31---r35"> Create list of features with ids p1 - p8 and r31 - r35 </span></h4>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="n">featureList</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;p&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">)]</span>
+<span class="n">featureList</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s1">&#39;r&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">31</span><span class="p">,</span> <span class="mi">36</span><span class="p">)])</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-14'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-14'>#</a>
+      </div>
+      <p>Get feature extractors using this list of ids</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="n">featureExtractors</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">extractorsById</span><span class="p">(</span><span class="n">featureList</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-15'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-15'>#</a>
+      </div>
+      <h4><span id="create-dataset" href="create-dataset"> Create DataSet </span></h4>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-16'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-16'>#</a>
+      </div>
+      <p>Instantiate <code>DataSet</code></p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="n">ds</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">DataSet</span><span class="p">(</span><span class="n">classLabel</span><span class="o">=</span><span class="s1">&#39;Region&#39;</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-17'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-17'>#</a>
+      </div>
+      <p>Add <code>featureExtractors</code></p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="n">ds</span><span class="o">.</span><span class="n">addFeatureExtractors</span><span class="p">(</span><span class="n">featureExtractors</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-18'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-18'>#</a>
+      </div>
+      <p><code>addData</code> for each stream in the oChina and oCEurope opuses</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">oChina</span><span class="o">.</span><span class="n">scores</span><span class="p">:</span>
+    <span class="n">wID</span> <span class="o">=</span> <span class="s1">&#39;essenFolkson/</span><span class="si">%s</span><span class="s1">-</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="s1">&#39;han1&#39;</span><span class="p">,</span> <span class="n">w</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">number</span><span class="p">)</span>
+    <span class="n">ds</span><span class="o">.</span><span class="n">addData</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">classValue</span><span class="o">=</span><span class="s1">&#39;China&#39;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">wID</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;han1 scores added to training data set&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">oCEurope</span><span class="o">.</span><span class="n">scores</span><span class="p">:</span>
+    <span class="n">wID</span> <span class="o">=</span> <span class="s1">&#39;essenFolksong/</span><span class="si">%s</span><span class="s1">-</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="s1">&#39;europe1&#39;</span><span class="p">,</span> <span class="n">w</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">number</span><span class="p">)</span>
+    <span class="n">ds</span><span class="o">.</span><span class="n">addData</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">classValue</span><span class="o">=</span><span class="s1">&#39;CentralEurope&#39;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">wID</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;boehme10 added to training data set&#39;</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-19'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-19'>#</a>
+      </div>
+      <p>Process data and feature extractors</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="n">ds</span><span class="o">.</span><span class="n">process</span><span class="p">()</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-20'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-20'>#</a>
+      </div>
+      <p>On my computer, processing the <code>DataSet</code> takes 76 seconds.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">print</span><span class="p">(</span><span class="s1">&#39;dataset processed&#39;</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-21'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-21'>#</a>
+      </div>
+      <p>timing stats</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">interval</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Feature extraction took&quot;</span><span class="p">,</span> <span class="n">interval</span><span class="p">,</span> <span class="s2">&quot;seconds.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-22'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-22'>#</a>
+      </div>
+      <h4><span id="pickle-and-unpickle-the-<code>dataset</code>" href="pickle-and-unpickle-the-<code>dataset</code>"> Pickle and unpickle the <code>DataSet</code> </span></h4>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-23'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-23'>#</a>
+      </div>
+      <p>Save the <code>DataSet</code> by pickling the output of <code>getFeaturesAsList()</code></p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;folkSongExample.pkl&#39;</span>
+<span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">getFeaturesAsList</span><span class="p">(),</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;dataset written as a pickled file&#39;</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-24'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-24'>#</a>
+      </div>
+      <h4><span id="'unpickle'-and-load-dataset" href="'unpickle'-and-load-dataset"> 'Unpickle' and load dataset </span></h4>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-25'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-25'>#</a>
+      </div>
+      <p>Load the datset</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;folkSongExample.pkl&#39;</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">))</span>
+
+</pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+</div>
+</body>

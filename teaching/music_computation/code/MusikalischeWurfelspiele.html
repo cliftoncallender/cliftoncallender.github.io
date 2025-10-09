@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>MusikalischeWurfelspiele.py</title>
+  <link rel="stylesheet" href="pycco.css">
+</head>
+<body>
+<div id='container'>
+  <div id="background"></div>
+  <div class='section'>
+    <div class='docs'><h1>MusikalischeWurfelspiele.py</h1></div>
+  </div>
+  <div class='clearall'>
+  <div class='section' id='section-0'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-0'>#</a>
+      </div>
+      <p>You can see the actual code file <a href="MusikalischeWurfelspiele.py">here</a>.
+The .xml for Musikalische Wurfelspiele is <a href="MusikalischeWurfelspiele.musx">here</a>.
+A PDF of an annotated score sorted by output measures is
+<a href="MusikalischeWurfelspieleOptions.pdf">here</a>.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">converter</span><span class="p">,</span> <span class="n">stream</span><span class="p">,</span> <span class="n">clef</span><span class="p">,</span> <span class="n">meter</span><span class="p">,</span> <span class="n">bar</span>
+<span class="kn">import</span> <span class="nn">random</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-1'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-1'>#</a>
+      </div>
+      <p><code>init</code> function to parse <code>MusikalischeWurfelspiele.xml</code> and split
+the single stream of 176 measures into 176 streams each of one measure.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">def</span> <span class="nf">init</span><span class="p">():</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-2'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-2'>#</a>
+      </div>
+      <p>Parse the "Musikalische Wurfelspiele" instruction score.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="n">s</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;MusikalischeWurfelspiele.xml&#39;</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-3'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-3'>#</a>
+      </div>
+      <p>Split score into measures.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="n">measures</span> <span class="o">=</span> <span class="p">[</span><span class="n">stream</span><span class="o">.</span><span class="n">Stream</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">176</span><span class="p">)]</span>
+    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">s</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">this_measure</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">getElementsByClass</span><span class="p">(</span><span class="s1">&#39;Measure&#39;</span><span class="p">)):</span>
+            <span class="n">measures</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">this_measure</span><span class="o">.</span><span class="n">notesAndRests</span><span class="o">.</span><span class="n">stream</span><span class="p">())</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-4'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-4'>#</a>
+      </div>
+      <p>chance table--each row corresponds to the option for a single measure
+in the output</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="n">table</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">96</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">69</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">148</span><span class="p">,</span> <span class="mi">104</span><span class="p">,</span> <span class="mi">152</span><span class="p">,</span> <span class="mi">119</span><span class="p">,</span> <span class="mi">98</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">54</span><span class="p">],</span>
+             <span class="p">[</span><span class="mi">22</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">74</span><span class="p">,</span> <span class="mi">157</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">84</span><span class="p">,</span> <span class="mi">142</span><span class="p">,</span> <span class="mi">87</span><span class="p">,</span> <span class="mi">130</span><span class="p">],</span>
+             <span class="p">[</span><span class="mi">141</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">158</span><span class="p">,</span> <span class="mi">113</span><span class="p">,</span> <span class="mi">163</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">171</span><span class="p">,</span> <span class="mi">114</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="mi">165</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
+             <span class="p">[</span><span class="mi">41</span><span class="p">,</span> <span class="mi">63</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">85</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">167</span><span class="p">,</span> <span class="mi">53</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">156</span><span class="p">,</span> <span class="mi">61</span><span class="p">,</span> <span class="mi">103</span><span class="p">],</span>
+             <span class="p">[</span><span class="mi">105</span><span class="p">,</span> <span class="mi">146</span><span class="p">,</span> <span class="mi">153</span><span class="p">,</span> <span class="mi">161</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">154</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mi">140</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">135</span><span class="p">,</span> <span class="mi">28</span><span class="p">],</span>
+             <span class="p">[</span><span class="mi">122</span><span class="p">,</span> <span class="mi">46</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">97</span><span class="p">,</span> <span class="mi">68</span><span class="p">,</span> <span class="mi">133</span><span class="p">,</span> <span class="mi">86</span><span class="p">,</span> <span class="mi">129</span><span class="p">,</span> <span class="mi">47</span><span class="p">,</span> <span class="mi">37</span><span class="p">],</span>
+             <span class="p">[</span><span class="mi">11</span><span class="p">,</span> <span class="mi">134</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">159</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">118</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">169</span><span class="p">,</span> <span class="mi">62</span><span class="p">,</span> <span class="mi">147</span><span class="p">,</span> <span class="mi">106</span><span class="p">],</span>
+             <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">81</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">107</span><span class="p">,</span> <span class="mi">91</span><span class="p">,</span> <span class="mi">127</span><span class="p">,</span> <span class="mi">94</span><span class="p">,</span> <span class="mi">123</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+             <span class="p">[</span><span class="mi">70</span><span class="p">,</span> <span class="mi">117</span><span class="p">,</span> <span class="mi">66</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">138</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">102</span><span class="p">,</span> <span class="mi">35</span><span class="p">],</span>
+             <span class="p">[</span><span class="mi">121</span><span class="p">,</span> <span class="mi">39</span><span class="p">,</span> <span class="mi">139</span><span class="p">,</span> <span class="mi">176</span><span class="p">,</span> <span class="mi">143</span><span class="p">,</span> <span class="mi">71</span><span class="p">,</span> <span class="mi">155</span><span class="p">,</span> <span class="mi">88</span><span class="p">,</span> <span class="mi">77</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span>
+             <span class="p">[</span><span class="mi">26</span><span class="p">,</span> <span class="mi">126</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mi">48</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">108</span><span class="p">],</span>
+             <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">56</span><span class="p">,</span> <span class="mi">132</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">125</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">175</span><span class="p">,</span> <span class="mi">166</span><span class="p">,</span> <span class="mi">82</span><span class="p">,</span> <span class="mi">164</span><span class="p">,</span> <span class="mi">92</span><span class="p">],</span>
+             <span class="p">[</span><span class="mi">112</span><span class="p">,</span> <span class="mi">174</span><span class="p">,</span> <span class="mi">73</span><span class="p">,</span> <span class="mi">67</span><span class="p">,</span> <span class="mi">76</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">43</span><span class="p">,</span> <span class="mi">51</span><span class="p">,</span> <span class="mi">137</span><span class="p">,</span> <span class="mi">144</span><span class="p">,</span> <span class="mi">12</span><span class="p">],</span>
+             <span class="p">[</span><span class="mi">49</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">58</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">136</span><span class="p">,</span> <span class="mi">162</span><span class="p">,</span> <span class="mi">168</span><span class="p">,</span> <span class="mi">115</span><span class="p">,</span> <span class="mi">38</span><span class="p">,</span> <span class="mi">59</span><span class="p">,</span> <span class="mi">124</span><span class="p">],</span>
+             <span class="p">[</span><span class="mi">109</span><span class="p">,</span> <span class="mi">116</span><span class="p">,</span> <span class="mi">145</span><span class="p">,</span> <span class="mi">52</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">89</span><span class="p">,</span> <span class="mi">72</span><span class="p">,</span> <span class="mi">149</span><span class="p">,</span> <span class="mi">173</span><span class="p">,</span> <span class="mi">44</span><span class="p">],</span>
+             <span class="p">[</span><span class="mi">14</span><span class="p">,</span> <span class="mi">83</span><span class="p">,</span> <span class="mi">79</span><span class="p">,</span> <span class="mi">170</span><span class="p">,</span> <span class="mi">93</span><span class="p">,</span> <span class="mi">151</span><span class="p">,</span> <span class="mi">172</span><span class="p">,</span> <span class="mi">111</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">131</span><span class="p">]]</span>
+    
+    <span class="k">return</span> <span class="p">(</span><span class="n">measures</span><span class="p">,</span> <span class="n">table</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-5'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-5'>#</a>
+      </div>
+      <p>Make a random choice from each of the 16 rows of the chance <code>table</code>.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">def</span> <span class="nf">generate_selections</span><span class="p">(</span><span class="n">table</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-6'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-6'>#</a>
+      </div>
+      
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="n">selections</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">table</span><span class="p">:</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span> <span class="o">+</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+        <span class="n">selections</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">selections</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-7'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-7'>#</a>
+      </div>
+      <p><code>measures</code> is a list of 176 streams of a single measure each. <code>selections</code>
+is a list corresponding to 16 of the 176 measure streams.</p>
+<p>Returns <code>out</code>, which is a stream consisting of the 16 selected measures.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">def</span> <span class="nf">create_waltz</span><span class="p">(</span><span class="n">measures</span><span class="p">,</span> <span class="n">selections</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-8'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-8'>#</a>
+      </div>
+      <p>Use <code>selections</code> to create output.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="n">out</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">Stream</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">Part</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">selection</span> <span class="ow">in</span> <span class="n">selections</span><span class="p">:</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">measures</span><span class="p">[</span><span class="n">selection</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">out</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">out</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-9'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-9'>#</a>
+      </div>
+      <p>Add clefs and time signatures to the waltz (<code>s</code>).</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">def</span> <span class="nf">add_clefs_and_timesignatures</span><span class="p">(</span><span class="n">s</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-10'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-10'>#</a>
+      </div>
+      
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">clef</span><span class="o">.</span><span class="n">TrebleClef</span><span class="p">())</span>
+    <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">clef</span><span class="o">.</span><span class="n">BassClef</span><span class="p">())</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+        <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">meter</span><span class="o">.</span><span class="n">TimeSignature</span><span class="p">(</span><span class="s1">&#39;3/8&#39;</span><span class="p">))</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-11'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-11'>#</a>
+      </div>
+      <p>Add repeat signs to the waltz (<code>s</code>).</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">def</span> <span class="nf">add_repeats</span><span class="p">(</span><span class="n">s</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-12'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-12'>#</a>
+      </div>
+      
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">]:</span>
+            <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">m</span><span class="p">]</span><span class="o">.</span><span class="n">leftBarline</span> <span class="o">=</span> <span class="n">bar</span><span class="o">.</span><span class="n">Repeat</span><span class="p">(</span><span class="n">direction</span><span class="o">=</span><span class="s1">&#39;start&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">15</span><span class="p">]:</span>
+            <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">m</span><span class="p">]</span><span class="o">.</span><span class="n">rightBarline</span> <span class="o">=</span> <span class="n">bar</span><span class="o">.</span><span class="n">Repeat</span><span class="p">(</span><span class="n">direction</span><span class="o">=</span><span class="s1">&#39;end&#39;</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-13'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-13'>#</a>
+      </div>
+      <p>Generate a new Waltz based on Mozart's "Musikalische Wurfelspiele".
+<code>measures</code> is a list of 176 streams of a single measure each. <code>table</code> is
+a matrix for the possible selection for each measure of the resulting
+16-bar waltz.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">def</span> <span class="nf">play_the_game</span><span class="p">(</span><span class="n">measures</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-14'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-14'>#</a>
+      </div>
+      
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="n">selections</span> <span class="o">=</span> <span class="n">generate_selections</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+    <span class="n">waltz</span> <span class="o">=</span> <span class="n">create_waltz</span><span class="p">(</span><span class="n">measures</span><span class="p">,</span> <span class="n">selections</span><span class="p">)</span>
+    <span class="n">add_clefs_and_timesignatures</span><span class="p">(</span><span class="n">waltz</span><span class="p">)</span>
+    <span class="n">add_repeats</span><span class="p">(</span><span class="n">waltz</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">show</span> <span class="o">==</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="n">waltz</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">waltz</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-15'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-15'>#</a>
+      </div>
+      <p>Sorts the possible measures by their location in the resulting waltz into
+a single music21 stream; e.g. the eleven possible first bars are
+bars 1 - 11 in the output stream, the eleven possible second bars are bars
+12 - 22 in the output stream, and so forth.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">def</span> <span class="nf">options_by_measures</span><span class="p">(</span><span class="n">measures</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-16'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-16'>#</a>
+      </div>
+      
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="n">collated_measures</span> <span class="o">=</span> <span class="p">[</span><span class="n">cell</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">table</span> <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">row</span><span class="p">]</span>
+    <span class="n">measures_options</span> <span class="o">=</span> <span class="n">create_waltz</span><span class="p">(</span><span class="n">measures</span><span class="p">,</span> <span class="n">collated_measures</span><span class="p">)</span>
+    <span class="n">add_clefs_and_timesignatures</span><span class="p">(</span><span class="n">measures_options</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">show</span> <span class="o">==</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="n">measures_options</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">measures_options</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-17'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-17'>#</a>
+      </div>
+      <p>Split the instructions into individual measures and grab the chance table.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="n">measures</span><span class="p">,</span> <span class="n">table</span> <span class="o">=</span> <span class="n">init</span><span class="p">()</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-18'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-18'>#</a>
+      </div>
+      <p>Play the game!</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="n">play_the_game</span><span class="p">(</span><span class="n">measures</span><span class="p">,</span> <span class="n">table</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-19'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-19'>#</a>
+      </div>
+      <p>Create score sorted by output measures.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="n">options_by_measures</span><span class="p">(</span><span class="n">measures</span><span class="p">,</span> <span class="n">table</span><span class="p">)</span>
+
+</pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+</div>
+</body>

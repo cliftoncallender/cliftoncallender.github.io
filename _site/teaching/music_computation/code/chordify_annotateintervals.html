@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>chordify_annotateintervals.py</title>
+  <link rel="stylesheet" href="pycco.css">
+</head>
+<body>
+<div id='container'>
+  <div id="background"></div>
+  <div class='section'>
+    <div class='docs'><h1>chordify_annotateintervals.py</h1></div>
+  </div>
+  <div class='clearall'>
+  <div class='section' id='section-0'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-0'>#</a>
+      </div>
+      <h3><span id="example-using-<code>.chordify</code>-and-<code>.annotateintervals</code>" href="example-using-<code>.chordify</code>-and-<code>.annotateintervals</code>"> Example using <code>.chordify</code> and <code>.annotateIntervals</code> </span></h3>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span></span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-1'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-1'>#</a>
+      </div>
+      <h4><span id="report-normalized-counts-of-chord-figures-for-every-simultaneity-in-the-bach-chorales" href="report-normalized-counts-of-chord-figures-for-every-simultaneity-in-the-bach-chorales"> Report normalized counts of chord figures for every simultaneity in the Bach chorales </span></h4>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+
+<span class="n">counts</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
+<span class="n">chorales_parsed</span> <span class="o">=</span> <span class="mi">0</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-2'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-2'>#</a>
+      </div>
+      <p>Iterate through the chorales using <code>corpus.chorales.Iterator()</code>.
+Use parameters to iterate through a selection of chorals; e.g.
+<code>corpus.chorales.Iterator(1, 15)</code>.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">for</span> <span class="n">chorale</span> <span class="ow">in</span> <span class="n">corpus</span><span class="o">.</span><span class="n">chorales</span><span class="o">.</span><span class="n">Iterator</span><span class="p">():</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-3'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-3'>#</a>
+      </div>
+      <p>Keep track of and report the number of chorales parsed.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="n">chorales_parsed</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">chorales_parsed</span><span class="p">,</span> <span class="s1">&#39;chorale(s) have been parsed.&#39;</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-4'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-4'>#</a>
+      </div>
+      <p><code>chodify</code> the current <code>chorale</code></p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="n">chorale_chords</span> <span class="o">=</span> <span class="n">chorale</span><span class="o">.</span><span class="n">chordify</span><span class="p">()</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-5'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-5'>#</a>
+      </div>
+      <p>Iterate through the <code>chord</code> objects of the chordified chorale
+(<code>chorale_chords</code>)</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">chorale_chords</span><span class="o">.</span><span class="n">flat</span><span class="o">.</span><span class="n">getElementsByClass</span><span class="p">(</span><span class="s1">&#39;Chord&#39;</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-6'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-6'>#</a>
+      </div>
+      <p>Reduce each chord to close position</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>        <span class="n">c</span><span class="o">.</span><span class="n">closedPosition</span><span class="p">(</span><span class="n">inPlace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-7'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-7'>#</a>
+      </div>
+      <p><code>annotateIntervals</code> adds a lyric object to a chord's <code>lyrics</code> property
+for each generic interval above the bass (e.g. '5', '3', etc.).</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>        <span class="n">c</span><span class="o">.</span><span class="n">annotateIntervals</span><span class="p">()</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-8'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-8'>#</a>
+      </div>
+      <p>Get the <code>text</code> from each lyric object in the chord's <code>lyrics</code> property
+and join into a single string (e.g. '53', '643', etc.).</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>        <span class="n">figure</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">l</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">lyrics</span><span class="p">])</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-9'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-9'>#</a>
+      </div>
+      <p>count the occurrences of each <code>figure</code></p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>        <span class="n">counts</span><span class="o">.</span><span class="n">update</span><span class="p">([</span><span class="n">figure</span><span class="p">])</span>
+
+<span class="k">print</span><span class="p">()</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-10'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-10'>#</a>
+      </div>
+      <p>get total count of figures in order to report normalized results</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="n">total_count</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">counts</span><span class="o">.</span><span class="n">values</span><span class="p">())</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-11'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-11'>#</a>
+      </div>
+      <p>sort the <code>counts</code> <code>Counter</code> by values from high to low and iterate through
+10 most common figures</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">for</span> <span class="n">figure</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">counts</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">counts</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="bp">True</span><span class="p">)[:</span><span class="mi">10</span><span class="p">]:</span>
+    <span class="n">figure_percentage</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="n">counts</span><span class="p">[</span><span class="n">figure</span><span class="p">]</span> <span class="o">/</span> <span class="n">total_count</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-12'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-12'>#</a>
+      </div>
+      <p>The output confirms intuitions about the most common figures:<br />
+<code>Figure 53 : 36 percent</code><br />
+<code>Figure 63 : 18 percent</code><br />
+<code>Figure 753 : 8 percent</code><br />
+<code>Figure 653 : 6 percent</code><br />
+<code>Figure 642 : 5 percent</code><br />
+<code>Figure 64 : 3 percent</code><br />
+<code>Figure 54 : 3 percent</code><br />
+<code>Figure 73 : 3 percent</code><br />
+<code>Figure 643 : 3 percent</code><br />
+<code>Figure 532 : 2 percent</code>  </p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Figure&#39;</span><span class="p">,</span> <span class="n">figure</span><span class="p">,</span> <span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">figure_percentage</span><span class="p">,</span> <span class="s1">&#39;percent&#39;</span><span class="p">)</span>
+
+</pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+</div>
+</body>

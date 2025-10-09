@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>CopeEMIFunctions.py</title>
+  <link rel="stylesheet" href="pycco.css">
+</head>
+<body>
+<div id='container'>
+  <div id="background"></div>
+  <div class='section'>
+    <div class='docs'><h1>CopeEMIFunctions.py</h1></div>
+  </div>
+  <div class='clearall'>
+  <div class='section' id='section-0'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-0'>#</a>
+      </div>
+      <p>Functions from Cope's 1992 article in the Computer Music Journal,
+"Modeling of Musical Intelligence in EMI" translated into Python. Actual code
+is <a href="CopeEMIFunctions.py">here</a>.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span></span><span class="n">motive_size</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">variance</span> <span class="o">=</span> <span class="mi">1</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-1'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-1'>#</a>
+      </div>
+      <p>Used by <code>allow-variation</code>. <code>motive1</code> and <code>motive2</code> are lists of integers
+representing directed pitch intervals.</p>
+<p>Compares <code>motive1</code> with original, inversion, retrograde, and retrograde
+inversion of <code>motive2</code>. If the absolute pairwise differences for any of
+these four comparisons are all less than or equal to the <code>variance</code>,
+returns <code>True</code>; otherwise, returns <code>False</code>.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">def</span> <span class="nf">allow_var</span><span class="p">(</span><span class="n">motive1</span><span class="p">,</span> <span class="n">motive2</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-2'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-2'>#</a>
+      </div>
+      
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="n">min_length</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">motive1</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">motive2</span><span class="p">))</span>
+    <span class="n">comparisons</span> <span class="o">=</span> <span class="p">[</span><span class="n">motive2</span><span class="p">,</span> <span class="n">inversion</span><span class="p">(</span><span class="n">motive2</span><span class="p">),</span> <span class="n">retrograde</span><span class="p">(</span><span class="n">motive2</span><span class="p">),</span>
+                   <span class="n">inversion</span><span class="p">(</span><span class="n">retrograde</span><span class="p">(</span><span class="n">motive2</span><span class="p">))]</span>
+    <span class="k">for</span> <span class="n">comparison</span> <span class="ow">in</span> <span class="n">comparisons</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">min_length</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">motive1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">comparison</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">&gt;</span> <span class="n">variance</span><span class="p">:</span>
+                <span class="k">break</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span>
+    <span class="k">return</span> <span class="bp">False</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-3'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-3'>#</a>
+      </div>
+      <p>Returns the inversion of <code>motive</code>.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">def</span> <span class="nf">inversion</span><span class="p">(</span><span class="n">motive</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-4'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-4'>#</a>
+      </div>
+      
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="k">return</span> <span class="p">[</span><span class="o">-</span><span class="n">el</span> <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">motive</span><span class="p">]</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-5'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-5'>#</a>
+      </div>
+      <p>Returns the retrograde of <code>motive</code>.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">def</span> <span class="nf">retrograde</span><span class="p">(</span><span class="n">motive</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-6'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-6'>#</a>
+      </div>
+      
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="k">return</span> <span class="n">motive</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-7'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-7'>#</a>
+      </div>
+      <p><code>motive</code> is a list of integers representing directed pitch intervals.
+<code>motive_list</code> is a list of such motives.</p>
+<p>For each <code>comparison</code> in <code>motive_list</code>, calls <code>all_var</code> to see if
+<code>comparison</code> matches <code>motive</code>. For successful matches, both <code>motive</code>
+and <code>comparison</code> are added to <code>signatures</code>.</p>
+<p>Returns <code>signatures</code>, a list of successful matches.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">def</span> <span class="nf">allow_variation</span><span class="p">(</span><span class="n">motive</span><span class="p">,</span> <span class="n">motive_list</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-8'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-8'>#</a>
+      </div>
+      
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="n">signatures</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">comparison</span> <span class="ow">in</span> <span class="n">motive_list</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">allow_var</span><span class="p">(</span><span class="n">motive</span><span class="p">,</span> <span class="n">comparison</span><span class="p">):</span>
+            <span class="n">signatures</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">motive</span><span class="p">,</span> <span class="n">comparison</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">signatures</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-9'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-9'>#</a>
+      </div>
+      <p><code>work</code> is a list of integers representing pitches.</p>
+<p>Returns a list of intervals.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">def</span> <span class="nf">produce_intervals</span><span class="p">(</span><span class="n">work</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-10'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-10'>#</a>
+      </div>
+      
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="k">return</span> <span class="p">[</span><span class="n">work</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">work</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">work</span><span class="p">))]</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-11'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-11'>#</a>
+      </div>
+      <p><code>intervals</code> is a list of integers. Returns a list of ngrams of <code>intervals</code>,
+where n = <code>size</code>.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">def</span> <span class="nf">break_into_patterns</span><span class="p">(</span><span class="n">intervals</span><span class="p">,</span> <span class="n">size</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-12'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-12'>#</a>
+      </div>
+      
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="k">return</span> <span class="p">[</span><span class="n">intervals</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="n">size</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">intervals</span><span class="p">)</span><span class="o">-</span><span class="n">size</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-13'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-13'>#</a>
+      </div>
+      <p>Matches patterns for <code>pattern_match</code>. Steps through the motives in
+<code>interval_lists1</code> for comparisons with <code>interval_lists2</code> by calling
+<code>allow_variation</code>.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">def</span> <span class="nf">match</span><span class="p">(</span><span class="n">interval_lists1</span><span class="p">,</span> <span class="n">interval_lists2</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-14'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-14'>#</a>
+      </div>
+      
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="n">signatures</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">intervals</span> <span class="ow">in</span> <span class="n">interval_lists1</span><span class="p">:</span>
+        <span class="n">signatures</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">allow_variation</span><span class="p">(</span><span class="n">intervals</span><span class="p">,</span> <span class="n">interval_lists2</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">signatures</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-15'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-15'>#</a>
+      </div>
+      <p><code>work1</code> and <code>work2</code> are lists of integers representing sequences of pitches.</p>
+<p>Matches the works under analysis after they have been reduced to
+intervals and broken into motives the length of <code>motive_size</code>.
+The process used by <code>break_into_patterns</code> is thorough in that it finds
+every contiguous pattern of the length prescribed by <code>motive_size</code> so
+that, for example, <code>[1, 2, 3, -4, -5]</code> becomes
+<code>[[1, 2, 3], [2, 3, -4], [3, -4, -5]]</code>. Note that using intervals at
+this stage means that a <code>motive_size</code> of two equates to three actual notes.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">def</span> <span class="nf">pattern_match</span><span class="p">(</span><span class="n">work1</span><span class="p">,</span> <span class="n">work2</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-16'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-16'>#</a>
+      </div>
+      
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="n">intervals1</span> <span class="o">=</span> <span class="n">break_into_patterns</span><span class="p">(</span><span class="n">produce_intervals</span><span class="p">(</span><span class="n">work1</span><span class="p">),</span> <span class="n">motive_size</span><span class="p">)</span>
+    <span class="n">intervals2</span> <span class="o">=</span> <span class="n">break_into_patterns</span><span class="p">(</span><span class="n">produce_intervals</span><span class="p">(</span><span class="n">work2</span><span class="p">),</span> <span class="n">motive_size</span><span class="p">)</span>
+    <span class="n">signatures</span> <span class="o">=</span> <span class="n">match</span><span class="p">(</span><span class="n">intervals1</span><span class="p">,</span> <span class="n">intervals2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">signatures</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-17'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-17'>#</a>
+      </div>
+      <p>Example <code>motive</code> and <code>motivelist</code></p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="n">motive</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="n">motivelist</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;motive:&#39;</span><span class="p">,</span> <span class="n">motive</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;motive list:&#39;</span><span class="p">,</span> <span class="n">motivelist</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-18'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-18'>#</a>
+      </div>
+      <p>Signatures discovered between <code>motive</code> and <code>motivelist</code> using
+<code>allow_varation</code></p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">print</span><span class="p">(</span><span class="s1">&#39;motive in motive list?&#39;</span><span class="p">,</span> <span class="n">allow_variation</span><span class="p">(</span><span class="n">motive</span><span class="p">,</span> <span class="n">motivelist</span><span class="p">))</span>
+<span class="k">print</span><span class="p">()</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-19'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-19'>#</a>
+      </div>
+      <p>Example works</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="n">work1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">72</span><span class="p">,</span> <span class="mi">76</span><span class="p">,</span> <span class="mi">79</span><span class="p">,</span> <span class="mi">71</span><span class="p">,</span> <span class="mi">72</span><span class="p">,</span> <span class="mi">74</span><span class="p">,</span> <span class="mi">72</span><span class="p">]</span>
+<span class="n">work2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">76</span><span class="p">,</span> <span class="mi">76</span><span class="p">,</span> <span class="mi">76</span><span class="p">,</span> <span class="mi">76</span><span class="p">,</span> <span class="mi">72</span><span class="p">,</span> <span class="mi">69</span><span class="p">,</span> <span class="mi">69</span><span class="p">,</span> <span class="mi">68</span><span class="p">,</span> <span class="mi">68</span><span class="p">,</span> <span class="mi">74</span><span class="p">,</span> <span class="mi">71</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;work 1 pitches:&#39;</span><span class="p">,</span> <span class="n">work1</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;work 2 pitches:&#39;</span><span class="p">,</span> <span class="n">work2</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-20'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-20'>#</a>
+      </div>
+      <p>Signatures derived from comparison of the two works</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">print</span><span class="p">(</span><span class="s1">&#39;patterns in common:&#39;</span><span class="p">,</span> <span class="n">pattern_match</span><span class="p">(</span><span class="n">work1</span><span class="p">,</span> <span class="n">work2</span><span class="p">))</span>
+
+</pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+</div>
+</body>

@@ -13,7 +13,6 @@ Say hi by [email][email], listen to my work on [YouTube][youtube] or [SoundCloud
 
 This site is built with [Jekyll][jekyll], hosted on [GitHub Pages][pages], based on a theme by [orderedlist][minimal], and incorporates modifications by [Mike Greiling][pixelcog].
 
-
 [FacultyPage]: http://www.music.fsu.edu/Faculty-and-Staff/Faculty/Clifton-Callender
 [COM]: http://music.fsu.edu
 [FSU]: http://fsu.edu

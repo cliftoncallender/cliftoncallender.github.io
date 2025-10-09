@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>choraleIteratorAndKeyAnalysis.py</title>
+  <link rel="stylesheet" href="pycco.css">
+</head>
+<body>
+<div id='container'>
+  <div id="background"></div>
+  <div class='section'>
+    <div class='docs'><h1>choraleIteratorAndKeyAnalysis.py</h1></div>
+  </div>
+  <div class='clearall'>
+  <div class='section' id='section-0'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-0'>#</a>
+      </div>
+      <h2><span id="music21-chorale-and-key-analysis-tools" href="music21-chorale-and-key-analysis-tools"> Music21 chorale and key analysis tools </span></h2>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="o">*</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-1'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-1'>#</a>
+      </div>
+      <p><code>s</code> is a music21 stream object.</p>
+<p>If a unique key is given by key objects in the stream, returns this key
+object. If there are no key objects or if there are more than one keys
+identified, returns <code>None</code>.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">def</span> <span class="nf">getKeyFromStream</span><span class="p">(</span><span class="n">s</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-2'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-2'>#</a>
+      </div>
+      
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="n">keys</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">s</span><span class="o">.</span><span class="n">flat</span><span class="o">.</span><span class="n">getElementsByClass</span><span class="p">(</span><span class="s1">&#39;Key&#39;</span><span class="p">):</span>
+        <span class="n">keys</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">el</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">keys</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">None</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-3'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-3'>#</a>
+      </div>
+      <p><code>corpus.chorales.Iterator</code> "is a class for iterating over many chorales."
+See http://web.mit.edu/music21/doc/moduleReference/
+moduleCorpusChorales.html#iterator for more details.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="n">BCI</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">chorales</span><span class="o">.</span><span class="n">Iterator</span><span class="p">()</span>
+<span class="n">total</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">BCI</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-4'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-4'>#</a>
+      </div>
+      <p>Empty list to hold stream objects for every chorale iterated through below.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="n">chorales</span> <span class="o">=</span> <span class="p">[]</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-5'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-5'>#</a>
+      </div>
+      <p>Iterate over all chorales in the corpus. Each chorale is parsed by default.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">chorale</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">BCI</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-6'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-6'>#</a>
+      </div>
+      <p>Note this syntax within the print statement. See
+https://pyformat.info/ for more info on string formatting.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2"> out of </span><span class="si">%d</span><span class="s2"> chorales parsed&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">total</span><span class="p">))</span>
+    <span class="n">chorales</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">chorale</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-7'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-7'>#</a>
+      </div>
+      <p>One-line version of the code above, in this case limited to chorales 1-10.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="n">chorales</span> <span class="o">=</span> <span class="p">[</span><span class="n">chorale</span> <span class="k">for</span> <span class="n">chorale</span> <span class="ow">in</span> <span class="n">corpus</span><span class="o">.</span><span class="n">chorales</span><span class="o">.</span><span class="n">Iterator</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)]</span>
+
+<span class="k">for</span> <span class="n">chorale</span> <span class="ow">in</span> <span class="n">chorales</span><span class="p">:</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-8'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-8'>#</a>
+      </div>
+      <p>get labeled key for current <code>chorale</code></p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="n">current_key</span> <span class="o">=</span> <span class="n">getKeyFromStream</span><span class="p">(</span><span class="n">chorale</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">current_key</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-9'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-9'>#</a>
+      </div>
+      <p>Title and other information can be found in the <code>metadata</code> object.
+See http://web.mit.edu/music21/doc/
+moduleReference/moduleMetadata.html for more details.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Chorale title:&quot;</span><span class="p">,</span> <span class="n">chorale</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Labeled key:&quot;</span><span class="p">,</span> <span class="n">current_key</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-10'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-10'>#</a>
+      </div>
+      <p>Analyze the key of the chorale using a key-analysis algorithm. We'll
+go over these details later in the course. Note that <code>s.analyze()</code>
+is equivalent to <code>analysis.discrete.analyzeStream(s)</code>.
+See http://web.mit.edu/music21/doc/moduleReference/
+moduleAnalysisDiscrete.html#keyweightkeyanalysis for more details.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>        <span class="n">k</span> <span class="o">=</span> <span class="n">chorale</span><span class="o">.</span><span class="n">analyze</span><span class="p">(</span><span class="s1">&#39;key&#39;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Analyzed key:&quot;</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-11'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-11'>#</a>
+      </div>
+      <p>Key objects derived from <code>analyze</code> have additional properties,
+<code>correlationCoefficient</code> which measures the correlation between
+the expected pitch-class distribution for the analyzed key and the
+actual distribution in the analyzed stream.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Correlation coefficient:&quot;</span><span class="p">,</span> <span class="n">k</span><span class="o">.</span><span class="n">correlationCoefficient</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-12'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-12'>#</a>
+      </div>
+      <p><code>alternateInterpretations</code> is a list of key objects for the remaining
+23 major and minor keys sorted from most to least likely.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>        <span class="n">alt_keys</span> <span class="o">=</span> <span class="n">k</span><span class="o">.</span><span class="n">alternateInterpretations</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-13'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-13'>#</a>
+      </div>
+      <p>Print the three most likely alternate keys and their correlation
+coefficients.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>        <span class="k">for</span> <span class="n">alt_key</span> <span class="ow">in</span> <span class="n">alt_keys</span><span class="p">[:</span><span class="mi">3</span><span class="p">]:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Top alternate keys:&quot;</span><span class="p">,</span> <span class="n">alt_key</span><span class="p">,</span>
+                <span class="s2">&quot;Correlation coefficient:&quot;</span><span class="p">,</span> <span class="n">alt_key</span><span class="o">.</span><span class="n">correlationCoefficient</span><span class="p">)</span>
+            
+        <span class="n">match</span> <span class="o">=</span> <span class="n">current_key</span> <span class="o">==</span> <span class="n">k</span>
+        <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Key analysis matches labeled key!&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Key analysis does not match labeled key! :-(&quot;</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-14'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-14'>#</a>
+      </div>
+      <p><code>.index(x)</code> finds the first index of a list that matches x.
+If there is no match, <code>index</code> returns <code>ValueError</code>.
+<code>&gt;&gt;&gt; a = [1, 2, 3]</code><br />
+<code>&gt;&gt;&gt; a.index(2)</code><br />
+<code>1</code><br />
+<code>&gt;&gt;&gt; a.index(4)</code><br />
+<code>ValueError: 4 is not in list</code></p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>            <span class="n">key_index</span> <span class="o">=</span> <span class="n">alt_keys</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">current_key</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Labeled key was the number </span><span class="si">%d</span><span class="s2"> analyzed key&quot;</span> <span class="o">%</span> <span class="n">key_index</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">()</span>
+
+</pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+</div>
+</body>

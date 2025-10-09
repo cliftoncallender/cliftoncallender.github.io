@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>Sep21_2017.py</title>
+  <link rel="stylesheet" href="pycco.css">
+</head>
+<body>
+<div id='container'>
+  <div id="background"></div>
+  <div class='section'>
+    <div class='docs'><h1>Sep21_2017.py</h1></div>
+  </div>
+  <div class='clearall'>
+  <div class='section' id='section-0'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-0'>#</a>
+      </div>
+      <p>Music Computation
+Code from September 21, 2017<br />
+Original code <a href="Sep21_2017.py">here</a></p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span></span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-1'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-1'>#</a>
+      </div>
+      
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-2'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-2'>#</a>
+      </div>
+      <h2><span id="import-statements" href="import-statements"> Import Statements </span></h2>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-3'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-3'>#</a>
+      </div>
+      <p>This line import <strong>all</strong> of the names and functions in the <code>os</code> library,
+including the functions <code>walk()</code> and <code>path.join()</code> used below.
+To refer to these names and functions, we must prefix the library name
+<code>os</code>; thus, <code>os.walk()</code> and <code>os.path.join()</code>.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="kn">import</span> <span class="nn">os</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-4'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-4'>#</a>
+      </div>
+      <p>This line imports <strong>only</strong> the name <code>Counter</code>, which is a function in the
+<code>collections</code> library. Since we are importing the name <code>Counter</code>
+directly, we do not need to prefix <code>collections</code>. (In fact, we are not
+importing the entire library, so using the name <code>collections</code> would
+produce an error.)</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-5'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-5'>#</a>
+      </div>
+      <p>This line is similar to that immediately above except for the use of "*".
+The asterisk is a wildcard character indicating that we are directly importing
+<strong>all</strong> names and functions associated with the <code>music21</code> library. Thus, we
+use (for example) <code>note.Note()</code> rather than <code>music21.note.Note()</code>.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="o">*</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-6'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-6'>#</a>
+      </div>
+      <h2><span id="counter" href="counter"> Counter</h2>
+<p></span></p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-7'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-7'>#</a>
+      </div>
+      <p>A <code>Counter</code> is a container that keeps track of how many times equivalent
+items are added. (Thus it is essentially a multiset.) <code>Counter</code> is much more
+convenient than using a dictionary to count frequencies of items. For a
+tutorial on <code>Counter</code> see https://pymotw.com/2/collections/counter.html or
+see https://docs.python.org/2/library/collections.html#collections.Counter
+for the reference document.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-8'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-8'>#</a>
+      </div>
+      <p>Here we create two seperate lists.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="n">list1</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">]</span>
+<span class="n">list2</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">]</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-9'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-9'>#</a>
+      </div>
+      <p>Create a <code>Counter</code> of <code>list1</code> and assign to <code>count</code>.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="n">count</span> <span class="o">+=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">list1</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-10'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-10'>#</a>
+      </div>
+      <p>Output: <code>Counter({'b': 3, 'a': 2, 'c': 1})</code></p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">print</span><span class="p">(</span><span class="n">count</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-11'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-11'>#</a>
+      </div>
+      <p>Create a <code>Counter</code> of <code>list2</code>, add to <code>count</code>, and then assign the result
+to <code>count</code>.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="n">count</span> <span class="o">+=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">list2</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-12'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-12'>#</a>
+      </div>
+      <p>Output: <code>Counter({'b': 6, 'd': 2, 'a': 2, 'c': 2})</code></p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">print</span><span class="p">(</span><span class="n">count</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-13'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-13'>#</a>
+      </div>
+      <h2><span id="testing-pitch-proximity" href="testing-pitch-proximity"> Testing pitch proximity</h2>
+<p></span></p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-14'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-14'>#</a>
+      </div>
+      <p>My code uses two functions:</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-15'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-15'>#</a>
+      </div>
+      <h4><span id="converting-all-files-belonging-to-a-given-directory-and-its-subdirectories-to-a-music21-stream-(if-possible)" href="converting-all-files-belonging-to-a-given-directory-and-its-subdirectories-to-a-music21-stream-(if-possible)"> Converting all files belonging to a given directory and its subdirectories to a music21 stream (if possible) </span></h4>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-16'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-16'>#</a>
+      </div>
+      <p><code>dir_name</code> is a string corresonding to a directory name</p>
+<p>returns a list of streams for all files in <code>dir_name</code> and its subdirectories
+that can be parsed by music21</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">def</span> <span class="nf">all_streams</span><span class="p">(</span><span class="n">dir_name</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-17'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-17'>#</a>
+      </div>
+      
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="n">my_streams</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">dir_name</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">file_name</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-18'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-18'>#</a>
+      </div>
+      <p><code>try</code> to execute the following block of code.
+If an error is encountered, a <code>try</code> block code execution is
+stopped and transferred down to the <code>except</code> block.
+If not error is encountered, the <code>try</code> block code is successfully
+executed.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>            <span class="k">try</span><span class="p">:</span>
+                <span class="n">my_streams</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">converter</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+                <span class="n">number_completed</span> <span class="o">+=</span> <span class="mi">1</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-19'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-19'>#</a>
+      </div>
+      <p>the <code>except</code> block code is executed if an error occurs in the
+<code>try</code> block</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>            <span class="k">except</span><span class="p">:</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-20'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-20'>#</a>
+      </div>
+      <p>here we use the reserve word <code>pass</code> to indicate that there
+are no statements to execute. (We simply want to ignore files
+that can't be parsed by <strong>music21</strong>.)</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>                <span class="k">pass</span>
+    <span class="k">return</span> <span class="n">my_streams</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-21'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-21'>#</a>
+      </div>
+      <h4><span id="returning-a-list-of-intervals-from-a-stream-consisting-of-a-single-line-of-pitches" href="returning-a-list-of-intervals-from-a-stream-consisting-of-a-single-line-of-pitches"> Returning a list of intervals from a stream consisting of a single line of pitches </span></h4>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">def</span> <span class="nf">melody_to_intervals</span><span class="p">(</span><span class="n">my_stream</span><span class="p">,</span> <span class="n">directed</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-22'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-22'>#</a>
+      </div>
+      <p><code>my_stream</code> is a music21 stream assumed to be a single-line melody</p>
+<p>returns a list of intervals between successive pitches
+If <code>directed=True</code>, the intervals are directed. Otherwise, the intervals
+are undirected. If <code>melody_to_intervals</code> is called with a single parameter,
+then <code>directed</code> is set to <code>False</code> by default.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="n">intervals</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">flat_stream</span> <span class="o">=</span> <span class="n">my_stream</span><span class="o">.</span><span class="n">flat</span><span class="o">.</span><span class="n">notes</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">flat_stream</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-23'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-23'>#</a>
+      </div>
+      <p><code>interval.Interval</code> is a music21 class for handling intervals.
+See http://web.mit.edu/music21/doc/moduleReference/
+moduleInterval.html#interval.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>        <span class="n">interval_type</span> <span class="o">=</span> <span class="n">interval</span><span class="o">.</span><span class="n">Interval</span><span class="p">(</span><span class="n">flat_stream</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">flat_stream</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-24'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-24'>#</a>
+      </div>
+      <p><code>.semitones</code> is a property of the <code>interval.Interval</code> class that
+yields the interval in directed semitones</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>        <span class="n">current_interval</span> <span class="o">=</span> <span class="n">interval_type</span><span class="o">.</span><span class="n">semitones</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-25'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-25'>#</a>
+      </div>
+      <p>If <code>directed</code> is False (meaning you want undirected intervals),
+then take the absolute (<code>abs</code>) value.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>        <span class="k">if</span> <span class="ow">not</span> <span class="n">directed</span><span class="p">:</span>
+            <span class="n">current_interval</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">current_interval</span><span class="p">)</span>
+        <span class="n">intervals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current_interval</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">intervals</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-26'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-26'>#</a>
+      </div>
+      <h4><span id="pulling-it-all-together" href="pulling-it-all-together"> Pulling it all together </span></h4>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="n">dir_name</span> <span class="o">=</span> <span class="s1">&#39;/Users/ccallender/Desktop/europa/deutschl/altdeu2/&#39;</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-27'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-27'>#</a>
+      </div>
+      <p>Convert all songs in the altdeu1 dir to music21 streams.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="n">my_streams</span> <span class="o">=</span> <span class="n">all_streams</span><span class="p">(</span><span class="n">dir_name</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-28'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-28'>#</a>
+      </div>
+      <p>Create an empty <code>Counter</code>.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="n">count</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-29'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-29'>#</a>
+      </div>
+      <p>Update counts of intervals for every stream in <code>myStreams</code>.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">my_streams</span><span class="p">:</span>
+    <span class="n">count</span> <span class="o">+=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">melody_to_intervals</span><span class="p">(</span><span class="n">s</span><span class="p">))</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-30'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-30'>#</a>
+      </div>
+      <h4><span id="display-absolute-counts-of-intervals." href="display-absolute-counts-of-intervals."> Display absolute counts of intervals.</h4>
+<p></span></p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">print</span><span class="p">(</span><span class="s1">&#39;Absolute counts of intervals&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">count</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="s1">&#39;semitone(s):&#39;</span><span class="p">,</span> <span class="n">count</span><span class="p">[</span><span class="n">key</span><span class="p">])</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-31'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-31'>#</a>
+      </div>
+      <p>Print a blank line.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">print</span><span class="p">()</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-32'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-32'>#</a>
+      </div>
+      <h4><span id="display-normalized-counts-of-intervals." href="display-normalized-counts-of-intervals."> Display normalized counts of intervals.</h4>
+<p></span></p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-33'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-33'>#</a>
+      </div>
+      <p><code>.values</code> returns a list of the values in a <code>Counter</code> or dictionary.
+<code>sum</code> returns the sum of all values in a list, tuple, or set.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="n">total_count</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">count</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+<span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="n">count</span><span class="p">:</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-34'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-34'>#</a>
+      </div>
+      <p><code>round</code> is a built-in Python function.
+<code>round(value, decimals)</code> will round <code>value</code> to the specified number
+of <code>decimals</code>.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="n">percent</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="n">count</span><span class="p">[</span><span class="n">interval</span><span class="p">]</span> <span class="o">/</span> <span class="n">total_count</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">interval</span><span class="p">,</span> <span class="s1">&#39;semitone(s):&#39;</span><span class="p">,</span> <span class="n">percent</span><span class="p">)</span>
+
+</pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+</div>
+</body>

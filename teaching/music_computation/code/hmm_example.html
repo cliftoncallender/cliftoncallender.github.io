@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>hmm_example.py</title>
+  <link rel="stylesheet" href="pycco.css">
+</head>
+<body>
+<div id='container'>
+  <div id="background"></div>
+  <div class='section'>
+    <div class='docs'><h1>hmm_example.py</h1></div>
+  </div>
+  <div class='clearall'>
+  <div class='section' id='section-0'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-0'>#</a>
+      </div>
+      <p><a href="hmm_example.py">Example code</a> for Hidden Markov Model (HMM).
+Specific example and some code taken from
+<a href="https://en.wikipedia.org/wiki/Hidden_Markov_model#A_concrete_example">Wikipedia</a>.
+This code is limited to generating hidden states and their corresponding
+emissions. We'll return to the more interesting and advanced questions of
+finding the most likely hidden states, parameters, and likely number of hidden
+states on the basis of a given observable sequence </p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-1'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-1'>#</a>
+      </div>
+      <p>Make a random selection from a dictionary with weighted keys</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">def</span> <span class="nf">weighted_choice</span><span class="p">(</span><span class="n">transitions</span><span class="p">):</span>
+    <span class="n">prob</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">state</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">transitions</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">prob</span> <span class="o">&lt;=</span> <span class="n">value</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">state</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">prob</span> <span class="o">-=</span> <span class="n">value</span>
+    <span class="k">return</span> <span class="bp">None</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-2'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-2'>#</a>
+      </div>
+      <p>Generate sequence of hidden states</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">def</span> <span class="nf">generate_states</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">start_probability</span><span class="p">,</span> <span class="n">transition_probability</span><span class="p">,</span> <span class="n">length</span><span class="p">):</span>
+    <span class="n">start_state</span> <span class="o">=</span> <span class="n">weighted_choice</span><span class="p">(</span><span class="n">start_probability</span><span class="p">)</span>
+    <span class="n">chain</span> <span class="o">=</span> <span class="p">[</span><span class="n">start_state</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">length</span><span class="p">):</span>
+        <span class="n">next_state</span> <span class="o">=</span> <span class="n">weighted_choice</span><span class="p">(</span><span class="n">transition_probability</span><span class="p">[</span><span class="n">start_state</span><span class="p">])</span>
+        <span class="n">chain</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">next_state</span><span class="p">)</span>
+        <span class="n">start_state</span> <span class="o">=</span> <span class="n">next_state</span>
+    <span class="k">return</span> <span class="n">chain</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-3'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-3'>#</a>
+      </div>
+      <p>Generate sequence of emissions based on the sequence of hidden states.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">def</span> <span class="nf">generate_emissions</span><span class="p">(</span><span class="n">state_sequence</span><span class="p">,</span> <span class="n">emission_probability</span><span class="p">):</span>
+    <span class="n">emissions</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">sequence</span><span class="p">:</span>
+        <span class="n">emission</span> <span class="o">=</span> <span class="n">weighted_choice</span><span class="p">(</span><span class="n">emission_probability</span><span class="p">[</span><span class="n">state</span><span class="p">])</span>
+        <span class="n">emissions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">emission</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">emissions</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-4'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-4'>#</a>
+      </div>
+      <p>Tuples of (hidden) states and observations</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="n">states</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Rainy&#39;</span><span class="p">,</span> <span class="s1">&#39;Sunny&#39;</span><span class="p">)</span>
+<span class="n">observations</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;walk&#39;</span><span class="p">,</span> <span class="s1">&#39;shop&#39;</span><span class="p">,</span> <span class="s1">&#39;clean&#39;</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-5'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-5'>#</a>
+      </div>
+      <p>Dictionaries of start probabilities. Keys are states and values are their
+respective probabilities.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="n">start_probability</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Rainy&#39;</span><span class="p">:</span> <span class="mf">0.6</span><span class="p">,</span> <span class="s1">&#39;Sunny&#39;</span><span class="p">:</span> <span class="mf">0.4</span><span class="p">}</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-6'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-6'>#</a>
+      </div>
+      <p>Dictionaries of transition and emission probabilities with states
+as keys.
+Values of these keys are <em>another</em> dictionary with possible next states or
+emissions as keys and their respective transition probabilities as values.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="n">transition_probability</span> <span class="o">=</span> <span class="p">{</span>
+   <span class="s1">&#39;Rainy&#39;</span> <span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Rainy&#39;</span><span class="p">:</span> <span class="mf">0.7</span><span class="p">,</span> <span class="s1">&#39;Sunny&#39;</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">},</span>
+   <span class="s1">&#39;Sunny&#39;</span> <span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Rainy&#39;</span><span class="p">:</span> <span class="mf">0.4</span><span class="p">,</span> <span class="s1">&#39;Sunny&#39;</span><span class="p">:</span> <span class="mf">0.6</span><span class="p">},</span>
+   <span class="p">}</span>
+ 
+<span class="n">emission_probability</span> <span class="o">=</span> <span class="p">{</span>
+   <span class="s1">&#39;Rainy&#39;</span> <span class="p">:</span> <span class="p">{</span><span class="s1">&#39;walk&#39;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span> <span class="s1">&#39;shop&#39;</span><span class="p">:</span> <span class="mf">0.4</span><span class="p">,</span> <span class="s1">&#39;clean&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">},</span>
+   <span class="s1">&#39;Sunny&#39;</span> <span class="p">:</span> <span class="p">{</span><span class="s1">&#39;walk&#39;</span><span class="p">:</span> <span class="mf">0.6</span><span class="p">,</span> <span class="s1">&#39;shop&#39;</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">,</span> <span class="s1">&#39;clean&#39;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">},</span>
+   <span class="p">}</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-7'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-7'>#</a>
+      </div>
+      <p>Generate sequence of hidden states.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="n">sequence</span> <span class="o">=</span> <span class="n">generate_states</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">start_probability</span><span class="p">,</span>
+                           <span class="n">transition_probability</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Sequence of hidden states:&#39;</span><span class="p">,</span> <span class="n">sequence</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-8'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-8'>#</a>
+      </div>
+      <p>Generate sequence of emissions based on the sequence of hidden states.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="n">emissions</span> <span class="o">=</span> <span class="n">generate_emissions</span><span class="p">(</span><span class="n">sequence</span><span class="p">,</span> <span class="n">emission_probability</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Observed emissions:&#39;</span><span class="p">,</span> <span class="n">emissions</span><span class="p">)</span>
+
+</pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+</div>
+</body>

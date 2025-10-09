@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>ProblemSet3MySolution.py</title>
+  <link rel="stylesheet" href="pycco.css">
+</head>
+<body>
+<div id='container'>
+  <div id="background"></div>
+  <div class='section'>
+    <div class='docs'><h1>ProblemSet3MySolution.py</h1></div>
+  </div>
+  <div class='clearall'>
+  <div class='section' id='section-0'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-0'>#</a>
+      </div>
+      <p>Music Computation
+Code from September 26, 2017</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span></span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-1'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-1'>#</a>
+      </div>
+      <h2><span id="my-solution-to-problem-set-3" href="my-solution-to-problem-set-3"> My solution to Problem Set 3 </span></h2>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-2'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-2'>#</a>
+      </div>
+      <p>My approach was to plot the percentage of ascending departures from a
+pitch as a function of distance from the median. As pitch height increases
+relative to the median, the percentage of ascending departures should
+decrease. Multiple plots are generated with differing constraints on the
+size of the approaching interval. Comparing these different plots can yield
+insight into the relative effects of regression to the mean and post-skip
+reversal for skips of various sizes.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+<span class="kn">import</span> <span class="nn">os</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-3'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-3'>#</a>
+      </div>
+      <h4><span id="matplotlib-and-numpy" href="matplotlib-and-numpy"> matplotlib and numpy </span></h4>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-4'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-4'>#</a>
+      </div>
+      <p>"Matplotlib is a Python 2D plotting library which produces publication quality
+figures in a variety of hardcopy formats and interactive environments across
+platforms. For simple plotting the <code>pyplot</code> module provides a MATLAB-like
+interface." See https://matplotlib.org/ for more details.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-5'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-5'>#</a>
+      </div>
+      <p>NumPy is the fundamental package for scientific computing with Python. See
+http://www.numpy.org/ for more details.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-6'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-6'>#</a>
+      </div>
+      <p>We will also go over some of the basic uses of Matplotlib and NumPy in class.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-7'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-7'>#</a>
+      </div>
+      <h4><span id="basic-class-for-the-experiment" href="basic-class-for-the-experiment"> Basic class for the experiment </span></h4>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-8'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-8'>#</a>
+      </div>
+      <p>Class that brings together four pieces of information
+about every pitch (current): its predecessor (previous), successor
+(following), and the median pitch (median) of the song in which current
+occurs.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">class</span> <span class="nc">PitchNeighborhood</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-9'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-9'>#</a>
+      </div>
+      
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">previous</span><span class="p">,</span> <span class="n">current</span><span class="p">,</span> <span class="n">following</span><span class="p">,</span> <span class="n">median</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">previous</span> <span class="o">=</span> <span class="n">previous</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current</span> <span class="o">=</span> <span class="n">current</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">following</span> <span class="o">=</span> <span class="n">following</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">median</span> <span class="o">=</span> <span class="n">median</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-10'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-10'>#</a>
+      </div>
+      <p>Basic methods for obtaining intervals from the previous pitch, to the
+following pitch, and from the median pitch.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="k">def</span> <span class="nf">getFromPrevious</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">current</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">previous</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-11'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-11'>#</a>
+      </div>
+      
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="k">def</span> <span class="nf">getToNext</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">following</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">current</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-12'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-12'>#</a>
+      </div>
+      
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="k">def</span> <span class="nf">getFromMedian</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">current</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">median</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-13'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-13'>#</a>
+      </div>
+      <h4><span id="create-a-list-of-pitchneighborhoods-for-(almost)-every-pitch" href="create-a-list-of-pitchneighborhoods-for-(almost)-every-pitch"> Create a list of PitchNeighborhoods for (almost) every pitch </span></h4>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-14'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-14'>#</a>
+      </div>
+      <p>Given a flattened Stream of notes, creates an instance
+of the <code>PitchNeighborhood</code> class for each pitch and adds the class
+to the list <code>neighborhoods</code>.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">def</span> <span class="nf">update_neighborhoods</span><span class="p">(</span><span class="n">neighborhoods</span><span class="p">,</span> <span class="n">song</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-15'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-15'>#</a>
+      </div>
+      
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="n">pitches</span> <span class="o">=</span> <span class="p">[</span><span class="n">n</span><span class="o">.</span><span class="n">pitch</span><span class="o">.</span><span class="n">ps</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">song</span><span class="p">]</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-16'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-16'>#</a>
+      </div>
+      <p>NumPy has a function for finding the median of list or NumPy array.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="n">med_pitch</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">pitches</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-17'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-17'>#</a>
+      </div>
+      <p>Ignore if the median pitch is not an actual pitch. This avoids keeping
+track of fractional distances from the median. Only 22 out of 704 songs
+are omitted.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">med_pitch</span><span class="p">)</span> <span class="o">!=</span> <span class="n">med_pitch</span><span class="p">:</span>
+        <span class="k">return</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-18'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-18'>#</a>
+      </div>
+      <p>Create <code>PitchNeighborhood</code> for every pitch (other than the beginning and
+ending pitches in each song) and append to the <code>neighborhoods</code> list.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">pitches</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">PitchNeighborhood</span><span class="p">(</span><span class="n">pitches</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">pitches</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">pitches</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">med_pitch</span><span class="p">)</span>
+        <span class="n">neighborhoods</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-19'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-19'>#</a>
+      </div>
+      <h4><span id="main-function-for-generating-figures" href="main-function-for-generating-figures"> Main function for generating figures </span></h4>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-20'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-20'>#</a>
+      </div>
+      <p>Function to test regression to the mean versus
+post-skip reversal. <code>neighborhoods</code> is a list of instances of
+the <code>PitchNeighborhood</code> class. <code>leaps</code> is a list of numbers
+corresponding to plots of the graphs. If a member of <code>leaps</code>, n,
+is positive, the corresponding plot includes data only for those
+pitches approached by an ascent of at least n. For negative n,
+the plot includes data only for those pitches approached by a
+descent of at least abs(n). If n is zero, the plot includes data
+for all pitches.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">def</span> <span class="nf">experiment</span><span class="p">(</span><span class="n">neighborhoods</span><span class="p">,</span> <span class="n">leaps</span><span class="p">,</span> <span class="n">figure</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-21'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-21'>#</a>
+      </div>
+      <p>Create <code>Counter</code> objects to keep track of frequencies of ascents and all
+all non-unison motions. This is to calculate percentages of non-unison
+motions that ascend.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="n">ascents</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
+    <span class="n">ascents_descents</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-22'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-22'>#</a>
+      </div>
+      <p>Details for plotting the figures.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figure</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+
+    
+    <span class="k">for</span> <span class="n">leap</span> <span class="ow">in</span> <span class="n">leaps</span><span class="p">:</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-23'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-23'>#</a>
+      </div>
+      <p><code>sign</code> is a NumPy function for determining the sign of a number.<br />
+<code>&gt;&gt;&gt; np.sign(-2)</code><br />
+<code>-1</code><br />
+<code>&gt;&gt;&gt; np.sign(2)</code><br />
+<code>1</code><br />
+<code>&gt;&gt;&gt; np.sign(0)</code><br />
+<code>0</code></p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>        <span class="n">sign</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">leap</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-24'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-24'>#</a>
+      </div>
+      <p>Loop to update the <code>ascents</code> and <code>ascents_descents</code> counters with
+pitches that are approached by an interval of at least size <code>leap</code>.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">neighborhoods</span><span class="p">:</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-25'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-25'>#</a>
+      </div>
+      <p>Filters the data to be included in the plot.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>            <span class="k">if</span> <span class="n">sign</span> <span class="o">*</span> <span class="n">p</span><span class="o">.</span><span class="n">getFromPrevious</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="n">sign</span> <span class="o">*</span> <span class="n">leap</span><span class="p">:</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-26'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-26'>#</a>
+      </div>
+      <p>Pitches left by an ascent.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">getToNext</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">ascents</span><span class="o">.</span><span class="n">update</span><span class="p">([</span><span class="n">p</span><span class="o">.</span><span class="n">getFromMedian</span><span class="p">()])</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-27'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-27'>#</a>
+      </div>
+      <p>Pitches not followed by the same pitch.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">getToNext</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">ascents_descents</span><span class="o">.</span><span class="n">update</span><span class="p">([</span><span class="n">p</span><span class="o">.</span><span class="n">getFromMedian</span><span class="p">()])</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-28'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-28'>#</a>
+      </div>
+      <p>The following loop deletes any keys in the <code>ascents_descents</code> counter
+if there are fewer than 10 instances of the key. Keys in the counters
+correspond to distances from the median. Deleting the keys is to
+avoid plotting data with a very small sample size.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-29'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-29'>#</a>
+      </div>
+      <p>Note that this <code>for</code> loop is iterating over a list of keys in the
+counter. Since we are potentially altering the counter (by deleting
+keys), it would create problem to iterate over the keys directly with<br />
+<code>for key in ascents_descents</code>.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">ascents_descents</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">ascents_descents</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
+                <span class="k">del</span> <span class="n">ascents_descents</span><span class="p">[</span><span class="n">key</span><span class="p">]</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-30'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-30'>#</a>
+      </div>
+      <p>Create values for x- and y-axes of the figure.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>        <span class="n">xvalues</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">ascents_descents</span><span class="p">)</span>
+        <span class="n">yvalues</span> <span class="o">=</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">ascents</span><span class="p">[</span><span class="n">x</span><span class="p">])</span> <span class="o">/</span> <span class="n">ascents_descents</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+                   <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">xvalues</span><span class="p">]</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-31'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-31'>#</a>
+      </div>
+      <p>Generate legend for the figure.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>        <span class="k">if</span> <span class="n">leap</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">lab</span> <span class="o">=</span> <span class="s1">&#39;All pitches&#39;</span>
+        <span class="k">elif</span> <span class="n">leap</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">lab</span> <span class="o">=</span> <span class="s1">&#39;Approached by ascent of &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">leap</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; or more&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">lab</span> <span class="o">=</span> <span class="s1">&#39;Approached by descent of &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">leap</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; or more&#39;</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-32'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-32'>#</a>
+      </div>
+      <p>Create the plot corresponding to the current value of <code>leap</code>.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xvalues</span><span class="p">,</span> <span class="n">yvalues</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="n">lab</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-33'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-33'>#</a>
+      </div>
+      <p>Clear the two counters for the next value of <code>leap</code>.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>        <span class="n">ascents</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">ascents_descents</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-34'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-34'>#</a>
+      </div>
+      <p>Label axes, provide title, and place legend in the figure.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Distance of pitch from median&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Percent of motions from pitch that ascend&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Regression to the mean&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.05</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">borderaxespad</span><span class="o">=</span><span class="mf">0.</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-35'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-35'>#</a>
+      </div>
+      <p>Write figure to the hard drive.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;Figure &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">figure</span><span class="p">))</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-36'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-36'>#</a>
+      </div>
+      <h4><span id="pulling-it-all-together" href="pulling-it-all-together"> Pulling it all together </span></h4>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-37'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-37'>#</a>
+      </div>
+      <p>Parse songs in the 'boehme' subdirectory. (Substitute the appropriate file
+path for your computer.)</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="n">dir_name</span> <span class="o">=</span> <span class="s1">&#39;/Users/ccallender/Desktop/europa/deutschl/boehme/&#39;</span>
+<span class="n">filenames</span> <span class="o">=</span> <span class="p">[</span><span class="n">filename</span> <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">dir_name</span><span class="p">)]</span>
+<span class="n">paths</span> <span class="o">=</span> <span class="p">[</span><span class="n">dir_name</span> <span class="o">+</span> <span class="n">filename</span> <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">filenames</span> <span class="k">if</span> <span class="n">filename</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.krn&#39;</span><span class="p">)]</span>
+<span class="n">songs</span> <span class="o">=</span> <span class="p">[</span><span class="n">converter</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">flat</span><span class="o">.</span><span class="n">notes</span> <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Songs loaded&quot;</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-38'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-38'>#</a>
+      </div>
+      <p>Create and update <code>neighborhoods</code> for each <code>song</code>.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="n">neighborhoods</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">song</span> <span class="ow">in</span> <span class="n">songs</span><span class="p">:</span>
+    <span class="n">update_neighborhoods</span><span class="p">(</span><span class="n">neighborhoods</span><span class="p">,</span> <span class="n">song</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-39'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-39'>#</a>
+      </div>
+      <p>Figure 1: All pitches regardless of approach. Base plot demonstrating
+influence of regression to the mean</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="n">figure</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">experiment</span><span class="p">(</span><span class="n">neighborhoods</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">figure</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-40'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-40'>#</a>
+      </div>
+      <p>Figures 2-5: Base plot plus pitches approached by leaps of at least
+a minor third, perfect fourth, perfect fifth, and minor sixth, respectively.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">for</span> <span class="n">leap</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]:</span>
+    <span class="n">figure</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">experiment</span><span class="p">(</span><span class="n">neighborhoods</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">leap</span><span class="p">,</span> <span class="o">-</span><span class="n">leap</span><span class="p">],</span> <span class="n">figure</span><span class="p">)</span>
+
+</pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+</div>
+</body>
