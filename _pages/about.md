@@ -5,7 +5,7 @@ title:     About
 nobio:     true
 ---
 
-I'm active as both a composer and theorist. My work often connects with mathematics, including self-similarity and infinite canons, quotient spaces and voice leading, calculus and tempo, and aperiodic rhythms and tilings associated with continued fractions.
+I'm active as both a composer and theorist. I've written a wide variety of instrumental and vocal music, seeking to create works that are firmly situated in the present while freely embracing the rich resources of musical traditions. My creative and scholarly work often connects with mathematics, including self-similarity and infinite canons, quotient spaces and voice leading, and calculus and tempo. Recent compositions includes a focus on climate change, as music and the other arts can serve to help process the psychological baggage and negative emotions arising from an awareness of the crisis.
 
 I'm a [Professor of Composition][FacultyPage] in the [College of Music][COM] at [Florida State University][FSU], Co Editor-in-Chief of the [Journal of Mathematics and Music][JMM] and Associate Editor of [Perspectives of New Music][Perspectives]. 
 
