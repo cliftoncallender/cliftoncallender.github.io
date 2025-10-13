@@ -2,7 +2,7 @@
 permalink: 
 title: Dear Matafele Peinam
 instrumentation: mezzo soprano and orchestra
-score: 
+score: DearMatafelePeinam.pdf
 performance: Written for [Phyllis Pancella](https://www.uncsa.edu/faculty-staff/phyllis-pancella.aspx) and the Florida State [University Symphony Orchestra](https://www.music.fsu.edu/ensembles/orchestras) with [Alexander Jiménez](https://www.alexanderjimenez.net/) conducting.
 categories: composition
 youtube-id: 

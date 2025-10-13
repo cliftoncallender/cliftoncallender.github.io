@@ -2,8 +2,7 @@
 permalink: /composition/DearMatafelePeinam/
 layout: default
 title: Dear Matafele Peinam
-score: DearMatafelePeinam.pdf
-categories: composition
+categories: 
 ---
 # Dear Matafele Peinam
 
